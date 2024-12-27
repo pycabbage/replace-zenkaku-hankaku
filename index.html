@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    window.addEventListener("load", () => {
+      const input = document.querySelector("input[name=\"input\"]")
+      const output = document.querySelector("input[name=\"output\"]")
+      console.log({input, output})
+      function handleChange(e) {
+        const value = e?.value || e.currentTarget.value
+        const replaced = value.replace(/[０-９Ａ-Ｚａ-ｚ]/g, (s) =>
+          String.fromCharCode(s.charCodeAt(0) - 0xfee0),
+        )
+        output.value = replaced
+      }
+      input.addEventListener("keydown", handleChange)
+      input.addEventListener("keyup", handleChange)
+      handleChange(input)
+    })
+  </script>
+</head>
+<body>
+  <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <input name="input" type="text" placeholder="入力" />
+    <input name="output" type="text" placeholder="出力" readonly />
+  </div>
+</body>
+</html>
